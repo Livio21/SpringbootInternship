@@ -21,17 +21,16 @@ class GreetingController {
 
     @GetMapping("/get-greet/{language}")
     public String getGreetBasedOnLanguage(@PathVariable String language){
-        return greetings.get(language.toLowerCase());
+
+        return greetings.getOrDefault(language.toLowerCase(),"Not found.");
     }
 
 
     @PostMapping("/add-greeting")
     public String addGreeting(@RequestBody Greeting greet){
 
-        Greeting newGreeting = new Greeting(greet.getGreeting(),greet.getLanguage());
+        this.greetings.put(greet.getLanguage().toLowerCase(),greet.getGreeting());
 
-        this.greetings.put(newGreeting.getLanguage().toLowerCase(),newGreeting.getGreeting());
-
-        return "Added new greeting " + newGreeting;
+        return "Added new greeting " + greet;
     }
 }
