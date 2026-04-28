@@ -15,8 +15,16 @@ class GreetingController {
 
 
     @GetMapping("/greetings")
-    public Map<String,String> getGreetings(){
-        return greetings;
+    public String getGreetings(){
+        StringBuilder allGreetings = new StringBuilder();
+
+        for(String language: greetings.keySet()){
+            String singularGreet ="Language:" + language + " - " + "Greeting: " + greetings.get(language);
+            allGreetings.append(singularGreet).append("\n");
+        }
+
+
+        return allGreetings.toString(); 
     }
 
     @GetMapping("/get-greet/{language}")
