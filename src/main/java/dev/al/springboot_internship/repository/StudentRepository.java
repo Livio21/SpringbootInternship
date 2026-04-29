@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-
-    List<Student> findByLastName(String lastName);
-
     Student findById(long id);
+
+    boolean existsStudentByName(String name);
+
 
 }

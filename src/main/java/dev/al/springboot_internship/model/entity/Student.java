@@ -15,10 +15,9 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull private String emri;
+    @NonNull private String name;
     @NonNull private String email;
     private String birthDate;
     private String phoneNumber;
     private int points;
-
 }

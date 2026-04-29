@@ -11,8 +11,12 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Student saveStudent(Student student) {
-        return studentRepository.save(student);
+    public String saveStudent(Student student) {
+        if (studentRepository.existsStudentByName(student.getName())){
+            throw new IllegalArgumentException("Student already exists");
+        }
+        studentRepository.save(student);
+        return "Student Added successfully: " + student;
     }
 
     public Iterable<Student> getAllStudents() {
@@ -24,9 +28,11 @@ public class StudentService {
     }
 
     public void deleteStudentById(Long id) {
+
+        if(!studentRepository.existsById(id)) throw new IllegalArgumentException("Student cannot be deleted, it doesnt exist");
+
         studentRepository.deleteById(id);
     }
-
 
 
 }

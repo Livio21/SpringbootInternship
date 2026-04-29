@@ -22,13 +22,14 @@ class StudentController {
         return studentService.getStudentById(id);
     }
 
+
     @PostMapping("/add-student")
-    public Student createStudent(@RequestBody Student student){
+    public String createStudent(@RequestBody Student student){
         return studentService.saveStudent(student);
     }
 
     @DeleteMapping("/remove-student/{id}")
-    public void deleteStudnet(@PathVariable Long id){
+    public void deleteStudent(@PathVariable Long id){
         studentService.deleteStudentById(id);
     }
 
