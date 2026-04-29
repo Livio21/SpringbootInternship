@@ -8,7 +8,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Student findById(long id);
 
-    boolean existsStudentByName(String name);
+//    boolean existsStudentByName(String name);
+    boolean existsStudentByNameIgnoreCase(String name);
+
 
 
 }

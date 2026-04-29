@@ -1,5 +1,6 @@
 package dev.al.springboot_internship.service;
 
+import dev.al.springboot_internship.exceptions.ExtraExceptions;
 import dev.al.springboot_internship.model.entity.Student;
 import dev.al.springboot_internship.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public String saveStudent(Student student) {
-        if (studentRepository.existsStudentByName(student.getName())){
+        if (studentRepository.existsStudentByNameIgnoreCase(student.getName())){
             throw new IllegalArgumentException("Student already exists");
         }
         studentRepository.save(student);
@@ -23,13 +24,14 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(Long id) {
+    public Student getStudentById(Long id) throws ExtraExceptions.StudentNotFoundException {
+        if(!studentRepository.existsById(id)) throw new ExtraExceptions.StudentNotFoundException("Student with id:"+ id + " doesnt exist.");
         return studentRepository.findById(id).orElse(null);
     }
 
-    public void deleteStudentById(Long id) {
+    public void deleteStudentById(Long id) throws ExtraExceptions.StudentAlreadyExistsException {
 
-        if(!studentRepository.existsById(id)) throw new IllegalArgumentException("Student cannot be deleted, it doesnt exist");
+        if(!studentRepository.existsById(id)) throw new ExtraExceptions.StudentAlreadyExistsException("Student cannot be deleted, it doesnt exist.");
 
         studentRepository.deleteById(id);
     }

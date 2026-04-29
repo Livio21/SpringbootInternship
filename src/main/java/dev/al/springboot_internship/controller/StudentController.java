@@ -1,5 +1,6 @@
 package dev.al.springboot_internship.controller;
 
+import dev.al.springboot_internship.exceptions.ExtraExceptions;
 import dev.al.springboot_internship.model.entity.Student;
 import dev.al.springboot_internship.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ class StudentController {
     }
 
     @GetMapping("/student/{id}")
-    public Student getStudentById(@PathVariable Long id){
+    public Student getStudentById(@PathVariable Long id) throws ExtraExceptions.StudentNotFoundException {
         return studentService.getStudentById(id);
     }
 
@@ -29,7 +30,7 @@ class StudentController {
     }
 
     @DeleteMapping("/remove-student/{id}")
-    public void deleteStudent(@PathVariable Long id){
+    public void deleteStudent(@PathVariable Long id) throws ExtraExceptions.StudentAlreadyExistsException {
         studentService.deleteStudentById(id);
     }
 
