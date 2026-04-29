@@ -25,12 +25,12 @@ class StudentController {
 
 
     @PostMapping("/add-student")
-    public String createStudent(@RequestBody Student student){
+    public String createStudent(@RequestBody Student student) throws ExtraExceptions.StudentAlreadyExistsException {
         return studentService.saveStudent(student);
     }
 
     @DeleteMapping("/remove-student/{id}")
-    public void deleteStudent(@PathVariable Long id) throws ExtraExceptions.StudentAlreadyExistsException {
+    public void deleteStudent(@PathVariable Long id) throws ExtraExceptions.StudentNotFoundException {
         studentService.deleteStudentById(id);
     }
 
