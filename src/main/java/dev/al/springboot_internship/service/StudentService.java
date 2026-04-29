@@ -12,9 +12,9 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public String saveStudent(Student student) throws ExtraExceptions.StudentAlreadyExistsException {
-        if (studentRepository.existsStudentByNameIgnoreCase(student.getName())){
-            throw new ExtraExceptions.StudentAlreadyExistsException("Student already exists");
+    public String saveStudent(Student student) {
+        if (studentRepository.existsStudentByNameIgnoreCase(student.getName())) {
+            throw new ExtraExceptions.StudentAlreadyExistsException(student.getName());
         }
         studentRepository.save(student);
         return "Student Added successfully: " + student;
@@ -24,14 +24,14 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student getStudentById(Long id) throws ExtraExceptions.StudentNotFoundException {
-        if(!studentRepository.existsById(id)) throw new ExtraExceptions.StudentNotFoundException("Student with id:"+ id + " doesnt exist.");
+    public Student getStudentById(Long id) {
+        if (!studentRepository.existsById(id)) throw new ExtraExceptions.StudentNotFoundException(id);
         return studentRepository.findById(id).orElse(null);
     }
 
-    public void deleteStudentById(Long id) throws ExtraExceptions.StudentNotFoundException {
+    public void deleteStudentById(Long id) {
 
-        if(!studentRepository.existsById(id)) throw new ExtraExceptions.StudentNotFoundException("Student cannot be deleted, it doesnt exist.");
+        if (!studentRepository.existsById(id)) throw new ExtraExceptions.StudentNotFoundException(id);
 
         studentRepository.deleteById(id);
     }
